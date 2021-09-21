@@ -1,0 +1,47 @@
+<template name="Users">
+    {{#if isInRole 'Super User'}}
+        <h1 class="page-title">Users</h1>
+        <table class={{editMode}}>
+            <tr>
+                 <th>Email</th>
+                <th>First Name</th>
+                <th>Created At</th>
+                <th>Role</th>
+                <th>Delete</th>
+
+            </tr>
+
+            {{#each users}}
+                <tr>
+                     <td class="user_id">{{userEmail}}</td>
+                    <td>{{profile.firstName}}</td>
+                    <td>{{dateFormat}}</td>
+                    <td>{{ isAdmin}}
+                    {{#if $not isCurrentSuperUser}}
+                        {{#if currentEdit}}
+                            <div class="user-edit">
+                                <i class="fa fa-close close-edit-mode"></i>
+                                <H3>Edit User</H3>
+                                {{#if isAdmin }}
+
+                                    <button class="toggle-admin"> Remove Super User</button>
+                                {{else}}
+                                    <button class="toggle-admin"> Make Super User</button>
+                                {{/if}}
+                            </div>
+                        {{/if}}
+                        {{/if}}
+                    </td>
+                    <td>
+                        {{#if  isAdmin }}
+                    {{else}}
+                        <button  class="removeUser btn-danger"> Remove User</button>
+                    {{/if}}
+                </td>
+                </tr>
+            {{/each}}
+        </table>
+    {{else}}
+        <h1>Not Authorized</h1>
+    {{/if}}
+</template>
